@@ -1,6 +1,6 @@
-<?php 
-function hello() {
-    echo "Hello La Plateforme !";
+<?php
+function getHello(){
+    return "Hello LaPlateforme_";
 }
 ?>
 
@@ -13,6 +13,6 @@ function hello() {
     <title>Document</title>
 </head>
 <body>
-    <?php hello() ?>
+    <?= getHello()?>
 </body>
 </html>
