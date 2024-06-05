@@ -12,18 +12,24 @@ function ajouteElement() {
 }
 
 ajouteElement();
-var_dump($_SESSION['listeProduit']);
+// var_dump($_SESSION['listeProduit']);
 
 function afficheArray() {
     foreach ($_SESSION['listeProduit'] as $produit) {
-        echo "Produit: " . htmlspecialchars($produit["produit"]) ." - Quantité: " . htmlspecialchars($produit["quantite"]). " - Prix unit: " . htmlspecialchars($produit["prix"]) . "- Prix total: " . htmlspecialchars(($produit["prix"]*$produit["quantite"])) . "<br>";
-    }
+        $produitNom = htmlspecialchars($produit["produit"]);
+        $quantite = htmlspecialchars($produit["quantite"]);
+        $prix = htmlspecialchars($produit["prix"]);
+        $total = $prix * $quantite;
+        $totalAvecRemise = ($total > 100) ? $total * 0.9 : $total;
+        echo "Produit: $produitNom - Quantité: $quantite - Prix unitaire: $prix € - Total: " . number_format($totalAvecRemise, 2) . " €<br>";    }
 }
 
-function reinitPost() {
-    $_POST = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    ajouteElement();
+    // Redirection après traitement du formulaire pour éviter la resoumission
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit();
 }
-reinitPost();
 ?>
 
 <!DOCTYPE html>
