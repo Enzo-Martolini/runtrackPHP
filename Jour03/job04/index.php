@@ -11,7 +11,7 @@ function ajouteElement() {
     }
 }
 
-ajouteElement();
+// ajouteElement();
 // var_dump($_SESSION['listeProduit']);
 
 function afficheArray() {
