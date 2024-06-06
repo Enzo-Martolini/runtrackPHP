@@ -2,17 +2,15 @@
 session_start();
 
 if (!isset($_SESSION['listeProduit'])) {
-    $_SESSION['listeProduit'] = [];
+    $_SESSION['listeProduit'] = []; //Crée la var de session
 }
 
 function ajouteElement() {
     if (!empty($_POST['produit']) || !empty($_POST['quantite']) || !empty($_POST['prix'])) {
-        array_push($_SESSION['listeProduit'], $_POST);
+        array_push($_SESSION['listeProduit'], $_POST); //Ajoute le contenun de POST dans la variable de session
     }
 }
 
-// ajouteElement();
-// var_dump($_SESSION['listeProduit']);
 
 function afficheArray() {
     foreach ($_SESSION['listeProduit'] as $produit) {
@@ -20,13 +18,12 @@ function afficheArray() {
         $quantite = htmlspecialchars($produit["quantite"]);
         $prix = htmlspecialchars($produit["prix"]);
         $total = $prix * $quantite;
-        $totalAvecRemise = ($total > 100) ? $total * 0.9 : $total;
+        $totalAvecRemise = ($total > 100) ? $total * 0.9 : $total; //Si $total est suppérieur à 100 alors $total x 0.9 sinon $total (reste intacte)
         echo "Produit: $produitNom - Quantité: $quantite - Prix unitaire: $prix € - Total: " . number_format($totalAvecRemise, 2) . " €<br>";    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ajouteElement();
-    // Redirection après traitement du formulaire pour éviter la resoumission
     header("Location: " . $_SERVER['PHP_SELF']);
     exit();
 }
@@ -47,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="number" name="prix" placeholder="Ajoutez son prix">
         <input type="submit" value="Envoyer">
     </form>
-    <div>
-        <?php afficheArray(); ?>
+    <div><pre>
+        <?php
+        var_dump($_SESSION['listeProduit'])
+        //afficheArray(); ?></pre>
     </div>
 </body>
 </html>
